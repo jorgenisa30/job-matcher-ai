@@ -52,7 +52,7 @@ Este proyecto **no envía candidaturas automáticamente sin supervisión**. Gene
 ### 1. Clona e instala dependencias
 
 ```bash
-git clone <tu-repo>
+git clone https://github.com/jorgenisa30/job-matcher-ai.git
 cd job-matcher-ai
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate

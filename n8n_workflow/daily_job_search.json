@@ -1,0 +1,105 @@
+{
+  "name": "Job Matcher AI - Búsqueda diaria y notificación",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      },
+      "name": "Trigger diario (9:00)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.adzuna.com/v1/api/jobs/es/search/1",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "app_id", "value": "={{$env.ADZUNA_APP_ID}}" },
+            { "name": "app_key", "value": "={{$env.ADZUNA_APP_KEY}}" },
+            { "name": "what", "value": "AI engineer" },
+            { "name": "where", "value": "Valencia" },
+            { "name": "results_per_page", "value": "20" }
+          ]
+        }
+      },
+      "name": "Buscar ofertas (Adzuna)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8000/search-and-match",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "cv_id", "value": "1" },
+            { "name": "query", "value": "AI engineer" },
+            { "name": "location", "value": "Valencia" }
+          ]
+        }
+      },
+      "name": "Matchear contra CV (backend propio)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{$json.matches_found}}",
+              "operation": "larger",
+              "value2": 0
+            }
+          ]
+        }
+      },
+      "name": "¿Hay nuevos matches?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "fromEmail": "notificaciones@jobmatcher.local",
+        "toEmail": "={{$env.NOTIFY_EMAIL}}",
+        "subject": "Nuevas ofertas que coinciden con tu perfil",
+        "text": "=Se han encontrado {{$json.matches_found}} ofertas nuevas. Revísalas en el dashboard."
+      },
+      "name": "Enviar email de aviso",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [1120, 220]
+    }
+  ],
+  "connections": {
+    "Trigger diario (9:00)": {
+      "main": [[{ "node": "Buscar ofertas (Adzuna)", "type": "main", "index": 0 }]]
+    },
+    "Buscar ofertas (Adzuna)": {
+      "main": [[{ "node": "Matchear contra CV (backend propio)", "type": "main", "index": 0 }]]
+    },
+    "Matchear contra CV (backend propio)": {
+      "main": [[{ "node": "¿Hay nuevos matches?", "type": "main", "index": 0 }]]
+    },
+    "¿Hay nuevos matches?": {
+      "main": [[{ "node": "Enviar email de aviso", "type": "main", "index": 0 }], []]
+    }
+  },
+  "meta": {
+    "description": "Workflow de ejemplo: cada día busca ofertas en Adzuna, las pasa por el backend de Job Matcher AI para matchear y guardar, y notifica por email si hay matches nuevos. Sustituye NOTIFY_EMAIL y las credenciales de Adzuna por variables de entorno de tu instancia n8n."
+  }
+}

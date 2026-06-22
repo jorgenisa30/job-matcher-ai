@@ -1,0 +1,32 @@
+Jorge Nisa Navarrete
+Ingeniero de Telecomunicaciones especializado en IA
+
+CONTACTO
+Teléfono: 648-401-437
+Email: jnisa30@gmail.com
+Ubicación: Alboraya, Valencia
+
+SOBRE MÍ
+Ingeniero de Telecomunicaciones especializado en Inteligencia Artificial y automatización,
+con experiencia práctica en el desarrollo de soluciones basadas en RAG, LLMs y sistemas
+multi-agente. Persona proactiva, constante y con alta capacidad de aprendizaje.
+
+EXPERIENCIA
+AI & Automation Engineer — AHORA (Feb 2026 - Actualidad)
+- Desarrollo e implementación de sistemas RAG con LLMs para recuperación inteligente de información.
+- Diseño de agentes de IA con arquitecturas multi-agente para automatización de flujos.
+- Automatización de procesos empresariales con n8n y técnicas avanzadas de web scraping.
+- Gestión de datos con Microsoft SQL Server integrado en pipelines de IA.
+
+Profesor Particular — Autónomo (2020 - 2025)
+- Docencia a estudiantes con necesidades educativas especiales.
+- Preparación académica STEM para Bachillerato científico-técnico.
+
+FORMACIÓN
+Grado en Ingeniería de Tecnologías y Servicios de Telecomunicación — UPV (2021 - 2026)
+
+HABILIDADES
+RAG, LLMs, AI Agent Architecture, Prompt Engineering, n8n, Web Scraping, Python, SQL Server
+
+IDIOMAS
+Castellano (nativo), Valenciano (nativo), Inglés (B2), Alemán (básico)

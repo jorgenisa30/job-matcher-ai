@@ -1,0 +1,21 @@
+# Entornos y secretos
+.env
+venv/
+__pycache__/
+*.pyc
+
+# Base de datos local (se genera con db/init_db.py)
+*.db
+*.sqlite
+*.sqlite3
+
+# CVs subidos por usuarios (datos personales, no deben versionarse)
+uploads/
+
+# Sistema
+.DS_Store
+.vscode/
+.idea/
+
+# Streamlit
+.streamlit/secrets.toml
